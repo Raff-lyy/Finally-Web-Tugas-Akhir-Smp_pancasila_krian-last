@@ -1,51 +1,53 @@
+@php
+$hero = \App\Models\Hero::where('slug','hero-home')->first();
+$stats = $hero->stats ?? ['students'=>500,'teachers'=>45,'programs'=>15,'years'=>25];
+@endphp
+
 <section id="home" 
     class="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden" 
-    style="background-image: url('{{ asset('images/bg-guru.jpg') }}')">
+    style="background-image: url('{{ $hero && $hero->background_image ? asset('storage/'.$hero->background_image) : asset('images/bg-guru.jpg') }}')">
 
-    <!-- Overlay gelap -->
     <div class="absolute inset-0 bg-black/50"></div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-        <!-- School Logo/Icon -->
-        
-
-        <!-- Main Heading -->
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-shadow">
-            <span class="block">SMP Pancasila</span>
+            <span class="block">{{ $hero->title ?? 'SMP Pancasila' }}</span>
             <span class="block text-primary-400">Krian</span>
         </h1>
 
-        <!-- Subtitle -->
         <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed">
-            Membentuk generasi yang berkarakter, berprestasi, dan berakhlak mulia dengan pendidikan berkualitas tinggi
+            {{ $hero->subtitle ?? 'Membentuk generasi yang berkarakter, berprestasi, dan berakhlak mulia.' }}
         </p>
 
-        <!-- CTA Buttons -->
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-            <a href="#about" class="bg-primary-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
-                Tentang Kami
+            <!-- Tombol 1 → route('tentang') -->
+            <a href="{{ route('tentang') }}" 
+               class="bg-primary-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
+                {{ $hero->button_1_text ?? 'Tentang Kami' }}
             </a>
-            <a href="#programs" class="border-2 border-primary-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary-600 hover:text-white transform hover:scale-105 transition-all duration-300">
-                Program Unggulan
+
+            <!-- Tombol 2 → route('program') -->
+            <a href="{{ route('fasilitas.index') }}" 
+               class="border-2 border-primary-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary-600 hover:text-white transform hover:scale-105 transition-all duration-300">
+                {{ $hero->button_2_text ?? 'Fasilitas Unggulan' }}
             </a>
         </div>
 
-        <!-- Stats -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
             <div class="text-center">
-                <div class="text-3xl md:text-4xl font-bold text-primary-400 mb-2" data-count="500">0</div>
+                <div class="text-3xl md:text-4xl font-bold text-primary-400 mb-2 counter" data-target="{{ $stats['students'] ?? 500 }}">0</div>
                 <div class="font-medium">Siswa Aktif</div>
             </div>
             <div class="text-center">
-                <div class="text-3xl md:text-4xl font-bold text-primary-400 mb-2" data-count="45">0</div>
+                <div class="text-3xl md:text-4xl font-bold text-primary-400 mb-2 counter" data-target="{{ $stats['teachers'] ?? 45 }}">0</div>
                 <div class="font-medium">Guru Berpengalaman</div>
             </div>
             <div class="text-center">
-                <div class="text-3xl md:text-4xl font-bold text-primary-400 mb-2" data-count="15">0</div>
+                <div class="text-3xl md:text-4xl font-bold text-primary-400 mb-2 counter" data-target="{{ $stats['programs'] ?? 15 }}">0</div>
                 <div class="font-medium">Program Unggulan</div>
             </div>
             <div class="text-center">
-                <div class="text-3xl md:text-4xl font-bold text-primary-400 mb-2" data-count="25">0</div>
+                <div class="text-3xl md:text-4xl font-bold text-primary-400 mb-2 counter" data-target="{{ $stats['years'] ?? 25 }}">0</div>
                 <div class="font-medium">Tahun Berpengalaman</div>
             </div>
         </div>
@@ -61,57 +63,36 @@
     </div>
 </section>
 
-
 <script>
-    // Counter animation
-    function animateCounters() {
-        const counters = document.querySelectorAll('[data-count]');
-        
-        counters.forEach(counter => {
-            const target = parseInt(counter.getAttribute('data-count'));
-            const duration = 2000; // 2 seconds
-            const increment = target / (duration / 16); // 60fps
-            let current = 0;
-            
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    counter.textContent = target;
-                    clearInterval(timer);
-                } else {
-                    counter.textContent = Math.floor(current);
-                }
-            }, 16);
-        });
-    }
+function animateCounters() {
+    const counters = document.querySelectorAll('.counter');
+    counters.forEach(counter => {
+        const target = Number(counter.getAttribute('data-target')) || 0;
+        let current = 0;
+        const duration = 2000;
+        const stepTime = Math.floor(duration / target) || 1;
+        const timer = setInterval(() => {
+            current++;
+            counter.textContent = current;
+            if(current >= target){
+                counter.textContent = target;
+                clearInterval(timer);
+            }
+        }, stepTime);
+    });
+}
 
-    // Trigger counter animation when hero section is in view
-    const observer = new IntersectionObserver((entries) => {
+const heroSection = document.getElementById('home');
+if(heroSection) {
+    const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
+            if(entry.isIntersecting){
                 animateCounters();
                 observer.unobserve(entry.target);
             }
         });
-    });
+    }, { threshold: 0.1 });
 
-    observer.observe(document.getElementById('home'));
-
-    // Smooth scroll for CTA buttons
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
-            
-            if (targetElement) {
-                const offsetTop = targetElement.offsetTop - 80;
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
+    observer.observe(heroSection);
+}
 </script>
-

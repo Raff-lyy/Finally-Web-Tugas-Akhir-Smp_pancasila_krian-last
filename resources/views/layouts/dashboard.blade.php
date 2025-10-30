@@ -27,6 +27,7 @@
       <a href="{{ route('users.index') }}" class="nav-link">👥 User</a>
       <a href="{{ route('dashboard.programs.index') }}" class="nav-link">📚 Program</a>
       <a href="{{ route('contacts.index') }}" class="nav-link">📩 Pesan Contact</a>
+      <a href="{{ route('dashboard.hero.index') }}" class="nav-link">🏠 Hero</a>
     </nav>
 
     <form action="{{ route('logout') }}" method="POST" class="p-4 border-t border-blue-400">

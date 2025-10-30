@@ -12,6 +12,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\tentangController;
+use App\Http\Controllers\HeroController;
+use App\Http\Controllers\AboutController;
 
 
 // Landing page
@@ -108,3 +110,25 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
 
 Route::get('/teachers', [TeacherController::class, 'public'])->name('teachers.public');
 Route::get('/tentang', [TentangController::class, 'index'])->name('tentang');
+
+// Users Crud
+Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(function() {
+    Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [App\Http\Controllers\UserController::class, 'create'])->name('users.create');
+    Route::post('/users', [App\Http\Controllers\UserController::class, 'store'])->name('users.store');
+    Route::get('/users/{user}/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [App\Http\Controllers\UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [App\Http\Controllers\UserController::class, 'destroy'])->name('users.destroy');
+});
+
+//Hero crud
+Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(function() {
+    Route::resource('hero', HeroController::class)->only(['index', 'edit', 'update']);
+});
+
+// //About
+// Route::prefix('dashboard/about')->name('dashboard.about.')->group(function() {
+//     Route::get('/', [AboutController::class, 'index'])->name('index');
+//     Route::get('/{about}/edit', [AboutController::class, 'edit'])->name('edit');
+//     Route::put('/{about}', [AboutController::class, 'update'])->name('update');
+// });
