@@ -64,3 +64,126 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+
+
+# SMP Pancasila Krian - Website
+
+Website resmi SMP Pancasila Krian dibuat menggunakan **Laravel**, **Tailwind CSS**, dan **npm**.  
+Tutorial ini menjelaskan cara **install dan menjalankan project di local** menggunakan **Dilaragon**.
+
+---
+
+## Persyaratan
+
+Sebelum memulai, pastikan sudah terinstall:
+
+- [Dilaragon](https://dilaragon.com/) (PHP, MySQL, Apache/Nginx sudah termasuk)
+- Composer
+- Node.js & NPM
+- Git
+
+---
+
+## 1. Clone Repository
+
+Clone repository dari GitHub:
+
+```bash
+git clone https://github.com/Raff-lyy/Finally-Web-Tugas-Akhir-Smp_pancasila_krian.git
+cd Finally-Web-Tugas-Akhir-Smp_pancasila_krian
+```
+
+2. Install Dependencies Laravel
+
+Install package PHP dengan Composer:
+```
+composer install
+```
+
+
+Copy .env.example menjadi .env:
+```
+cp .env.example .env
+```
+
+Generate app key:
+```
+php artisan key:generate
+```
+3. Setup Database
+
+Buat database di Dilaragon (misal: smp_pancasila)
+
+Sesuaikan .env database:
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=smp_pancasila
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Jalankan migrasi:
+```
+php artisan migrate --seed
+```
+4. Install NPM Dependencies & Compile Assets
+
+Install package frontend:
+```
+npm install
+npm run build
+```
+
+Compile assets Tailwind & JS:
+```
+npm run dev
+```
+
+Untuk development mode, gunakan npm run dev.
+Untuk production build: npm run build.
+
+5. Jalankan Server Laravel
+
+Jalankan server lokal:
+
+php artisan serve
+
+
+Buka browser dan akses:
+
+http://localhost:8000
+
+6. Dashboard Admin
+
+Route dashboard: /dashboard
+
+CRUD tersedia untuk: About, Berita, dan komponen lainnya.
+
+Pastikan sudah login sebagai admin sebelum melakukan update.
+
+Tips
+
+Pastikan folder storage dan bootstrap/cache writeable.
+
+Jika image atau asset tidak muncul, jalankan:
+
+php artisan storage:link
+
+
+Untuk live reload Tailwind, gunakan:
+
+npm run dev
+
+7. Referensi
+
+Laravel Docs
+
+Tailwind CSS Docs
+
+Dilaragon
+
+Created by Raff1337
