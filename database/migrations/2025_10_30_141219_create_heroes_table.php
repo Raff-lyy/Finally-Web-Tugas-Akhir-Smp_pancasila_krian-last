@@ -12,13 +12,23 @@ return new class extends Migration {
             $table->string('slug')->unique();
             $table->string('title')->nullable();
             $table->text('subtitle')->nullable();
+            $table->text('description');
             $table->string('button_1_text')->nullable();
-            $table->string('button_1_url')->nullable();
+            $table->string('button_1_link')->nullable();
             $table->string('button_2_text')->nullable();
-            $table->string('button_2_url')->nullable();
+            $table->string('button_2_link')->nullable();
+            $table->integer('students')->default(0);
+            $table->integer('teachers')->default(0);
+            $table->integer('programs')->default(0);
+            $table->integer('experience')->default(0);
             $table->string('background_image')->nullable();
             $table->json('stats')->nullable();
             $table->timestamps();
+
+
+
+
+
         });
     }
 

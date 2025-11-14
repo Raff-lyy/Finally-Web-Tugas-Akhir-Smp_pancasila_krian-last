@@ -1,10 +1,10 @@
 @php
-$hero = \App\Models\Hero::where('slug','hero-home')->first();
+$hero = \App\Models\Hero::where('slug','hai')->first();
 $stats = $hero->stats ?? ['students'=>500,'teachers'=>45,'programs'=>15,'years'=>25];
 @endphp
 
-<section id="home" 
-    class="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden" 
+<section id="home"
+    class="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden"
     style="background-image: url('{{ $hero && $hero->background_image ? asset('storage/'.$hero->background_image) : asset('images/bg-guru.jpg') }}')">
 
     <div class="absolute inset-0 bg-black/50"></div>
@@ -21,13 +21,13 @@ $stats = $hero->stats ?? ['students'=>500,'teachers'=>45,'programs'=>15,'years'=
 
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <!-- Tombol 1 → route('tentang') -->
-            <a href="{{ route('tentang') }}" 
+            <a href="{{ route('tentang') }}"
                class="bg-primary-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
                 {{ $hero->button_1_text ?? 'Tentang Kami' }}
             </a>
 
             <!-- Tombol 2 → route('program') -->
-            <a href="{{ route('fasilitas.index') }}" 
+            <a href="{{ route('fasilitas.index') }}"
                class="border-2 border-primary-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary-600 hover:text-white transform hover:scale-105 transition-all duration-300">
                 {{ $hero->button_2_text ?? 'Fasilitas Unggulan' }}
             </a>

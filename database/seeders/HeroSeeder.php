@@ -10,6 +10,7 @@ class HeroSeeder extends Seeder
     public function run(): void
     {
         Hero::create([
+            'slug'        => 'hai',
             'title'       => 'SMP Pancasila',
             'subtitle'    => 'Krian',
             'description' => 'Membentuk generasi berprestasi, berkarakter, dan berakhlak mulia.',
