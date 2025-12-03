@@ -129,6 +129,7 @@ DB_PASSWORD=
 Jalankan migrasi:
 ```
 php artisan migrate --seed
+php artisan storage:link
 ```
 4. Install NPM Dependencies & Compile Assets
 
