@@ -23,7 +23,7 @@
 
         <!-- Subtitle -->
         <div class="mb-4">
-            <label class="block mb-1 font-medium">Subjudul</label>
+            <label class="block mb-1 font-medium">Deskripsi Judul</label>
             <textarea name="subtitle" class="w-full p-2 border rounded">{{ old('subtitle', $hero->subtitle) }}</textarea>
             @error('subtitle') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
         </div>

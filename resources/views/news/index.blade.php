@@ -1,5 +1,7 @@
 @extends('layouts.app') {{-- ganti dengan layout umummu kalau ada --}}
 
+
+
 @section('title', 'Berita SMP Pancasila Krian')
 
 @section('content')

@@ -31,7 +31,7 @@ class ProgramController extends Controller
         $data = $request->validate([
             'title' => 'required|string|max:255',
             'desc'  => 'required|string',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
         ]);
 
         if ($request->hasFile('image')) {

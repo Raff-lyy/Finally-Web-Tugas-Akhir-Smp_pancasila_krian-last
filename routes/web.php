@@ -14,6 +14,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\tentangController;
 use App\Http\Controllers\HeroController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AdminForgotPasswordController;
 
 
 // Landing page
@@ -132,3 +133,39 @@ Route::prefix('dashboard')->name('dashboard.')->middleware('auth')->group(functi
 //     Route::get('/{about}/edit', [AboutController::class, 'edit'])->name('edit');
 //     Route::put('/{about}', [AboutController::class, 'update'])->name('update');
 // });
+
+
+
+Route::prefix('admin')->group(function () {
+
+    // 1️⃣ FORM EMAIL
+    Route::get('/forgot-password', 
+        [AdminForgotPasswordController::class, 'showEmailForm']
+    )->name('admin.forgot');
+
+    // 2️⃣ KIRIM OTP
+    Route::post('/forgot-password', 
+        [AdminForgotPasswordController::class, 'sendOtp']
+    )->name('admin.send.otp');
+
+    // 3️⃣ FORM OTP
+    Route::get('/verify-otp', 
+        [AdminForgotPasswordController::class, 'showOtpForm']
+    )->name('admin.verify');
+
+    // 4️⃣ VERIFIKASI OTP
+    Route::post('/verify-otp', 
+        [AdminForgotPasswordController::class, 'verifyOtp']
+    )->name('admin.verify.post');
+
+    // 5️⃣ FORM RESET PASSWORD
+    Route::get('/reset-password', 
+        [AdminForgotPasswordController::class, 'showResetForm']
+    )->name('admin.reset');
+
+    // 6️⃣ SIMPAN PASSWORD BARU
+    Route::post('/reset-password', 
+        [AdminForgotPasswordController::class, 'resetPassword']
+    )->name('admin.reset.post');
+
+});

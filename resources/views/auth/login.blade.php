@@ -4,13 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login Admin - SMP Pancasila Krian</title>
+
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts CDN -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
   <style>
     body { font-family: 'Poppins', sans-serif; }
   </style>
 </head>
 <body class="min-h-screen flex">
+
   <!-- Bagian Kiri -->
   <div class="hidden lg:flex relative w-1/2 h-screen">
     <img src="{{ asset('images/login-admin.jpg') }}" 
@@ -34,6 +40,7 @@
   <!-- Bagian Kanan -->
   <div class="flex w-full lg:w-1/2 justify-center items-center bg-gray-50">
     <div class="w-full max-w-md p-8">
+      
       <!-- Logo -->
       <div class="flex justify-center mb-6">
         <img src="{{ asset('images/logo.png') }}" alt="Logo"
@@ -46,27 +53,42 @@
 
       <!-- Form -->
       <form action="{{ route('login') }}" method="POST" class="space-y-5">
-        @csrf
-        <div>
-          <input type="email" id="email" name="email" placeholder="Email" required
-            class="w-full px-4 py-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
-        </div>
-        <div>
-          <input type="password" id="password" name="password" placeholder="Password" required
-            class="w-full px-4 py-3 border rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
-        </div>
-        <button type="submit"
-          class="w-full py-3 bg-indigo-700 text-white font-semibold rounded-lg hover:bg-indigo-800 transition">
-          Login
-        </button>
-      </form>
+  @csrf
+
+  <div>
+    <input type="email" id="email" name="email" placeholder="Email" required
+      class="w-full px-4 py-3 border rounded-lg shadow-sm
+             focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+  </div>
+
+  <div>
+    <input type="password" id="password" name="password" placeholder="Password" required
+      class="w-full px-4 py-3 border rounded-lg shadow-sm
+             focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+  </div>
+
+  <!-- LUPA PASSWORD -->
+  <div class="flex justify-end">
+    <a href="{{ route('admin.forgot') }}"
+       class="text-sm font-medium text-indigo-600 hover:text-indigo-800
+              transition duration-200">
+      Lupa password?
+    </a>
+  </div>
+
+  <button type="submit"
+    class="w-full py-3 bg-indigo-700 text-white font-semibold rounded-lg
+           hover:bg-indigo-800 transition duration-300 shadow-md hover:shadow-lg">
+    Login
+  </button>
+</form>
+
 
       <!-- Info -->
-      <p class="text-sm text-center text-gray-500 mt-6">
-        Butuh bantuan bisa hubungi <a href="#" class="text-indigo-600 hover:underline">disini</a>
-      </p>
+      
       <p class="text-xs text-center text-gray-400 mt-4">© 2025 SMP Pancasila Krian</p>
     </div>
   </div>
+
 </body>
 </html>

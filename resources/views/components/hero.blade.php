@@ -1,98 +1,150 @@
 @php
-$hero = \App\Models\Hero::where('slug','hai')->first();
-$stats = $hero->stats ?? ['students'=>500,'teachers'=>45,'programs'=>15,'years'=>25];
+    $hero = \App\Models\Hero::where('slug', 'hai')->first();
+    $stats = $hero->stats ?? [
+        'students' => 500,
+        'teachers' => 45,
+        'programs' => 15,
+        'years' => 25
+    ];
 @endphp
 
-<section id="home"
-    class="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden"
-    style="background-image: url('{{ $hero && $hero->background_image ? asset('storage/'.$hero->background_image) : asset('images/bg-guru.jpg') }}')">
+<section id="home" class="relative min-h-screen overflow-hidden">
 
-    <div class="absolute inset-0 bg-black/50"></div>
+    <!-- BG IMAGE -->
+    <img
+        src="{{ $hero && $hero->background_image ? asset('storage/' . $hero->background_image) : asset('images/bg-guru.jpg') }}"
+        class="absolute inset-0 w-full h-full object-cover scale-105"
+        alt="SMP Pancasila Krian">
 
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-shadow">
-            <span class="block">{{ $hero->title ?? 'SMP Pancasila' }}</span>
-            <span class="block text-primary-400">Krian</span>
-        </h1>
+    <!-- OVERLAY -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/60 to-primary-900/40"></div>
 
-        <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed">
-            {{ $hero->subtitle ?? 'Membentuk generasi yang berkarakter, berprestasi, dan berakhlak mulia.' }}
-        </p>
+    <!-- CONTENT -->
+    <div
+        class="relative z-10 max-w-7xl mx-auto px-5 sm:px-6
+               pt-28 sm:pt-36 lg:pt-44
+               pb-16">
 
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-            <!-- Tombol 1 → route('tentang') -->
-            <a href="{{ route('tentang') }}"
-               class="bg-primary-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
-                {{ $hero->button_1_text ?? 'Tentang Kami' }}
-            </a>
+        <div class="max-w-4xl mx-auto text-center">
 
-            <!-- Tombol 2 → route('program') -->
-            <a href="{{ route('fasilitas.index') }}"
-               class="border-2 border-primary-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary-600 hover:text-white transform hover:scale-105 transition-all duration-300">
-                {{ $hero->button_2_text ?? 'Fasilitas Unggulan' }}
-            </a>
+            <span
+                class="inline-flex justify-center mb-6 px-4 py-2 text-xs sm:text-sm
+                       bg-white/10 text-white rounded-full backdrop-blur">
+                🎓 Sekolah Berkarakter & Berprestasi
+            </span>
+
+            <h1
+                class="text-3xl sm:text-4xl md:text-6xl xl:text-7xl
+                       font-extrabold leading-tight tracking-tight">
+
+                <span class="block text-white drop-shadow-md">
+                    Selamat Datang di
+                </span>
+
+                <span
+                    class="block mt-2 bg-gradient-to-r from-green-300 via-green-400 to-green-600
+                           bg-clip-text text-transparent drop-shadow-lg">
+                    {{ $hero->title ?? 'SMP Pancasila Krian' }}
+                </span>
+            </h1>
+
+            <p class="mt-6 text-base sm:text-lg md:text-xl text-gray-200 max-w-2xl mx-auto">
+                {{ $hero->subtitle ?? 'Membentuk generasi berkarakter, berprestasi, dan siap menghadapi masa depan.' }}
+            </p>
+
+            <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
+                <a href="{{ route('contact') }}"
+                    class="px-7 py-3 sm:px-9 sm:py-4
+                           border border-white/30 text-white rounded-2xl
+                           hover:bg-white/10 transition">
+                    {{ $hero->button_1_text ?? 'Tentang Kami' }}
+                </a>
+
+                <a href="{{ route('fasilitas.index') }}"
+                    class="px-7 py-3 sm:px-9 sm:py-4
+                           border border-white/30 text-white rounded-2xl
+                           hover:bg-white/10 transition">
+                    {{ $hero->button_2_text ?? 'Fasilitas Unggulan' }}
+                </a>
+            </div>
+
         </div>
+    </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-            <div class="text-center">
-                <div class="text-3xl md:text-4xl font-bold text-primary-400 mb-2 counter" data-target="{{ $stats['students'] ?? 500 }}">0</div>
-                <div class="font-medium">Siswa Aktif</div>
-            </div>
-            <div class="text-center">
-                <div class="text-3xl md:text-4xl font-bold text-primary-400 mb-2 counter" data-target="{{ $stats['teachers'] ?? 45 }}">0</div>
-                <div class="font-medium">Guru Berpengalaman</div>
-            </div>
-            <div class="text-center">
-                <div class="text-3xl md:text-4xl font-bold text-primary-400 mb-2 counter" data-target="{{ $stats['programs'] ?? 15 }}">0</div>
-                <div class="font-medium">Program Unggulan</div>
-            </div>
-            <div class="text-center">
-                <div class="text-3xl md:text-4xl font-bold text-primary-400 mb-2 counter" data-target="{{ $stats['years'] ?? 25 }}">0</div>
-                <div class="font-medium">Tahun Berpengalaman</div>
+    <!-- STATS -->
+    <!-- mobile & tablet: normal flow | desktop: absolute -->
+    <div
+        class="relative lg:absolute
+               lg:bottom-20
+               left-0 right-0
+               z-20
+               mt-12 lg:mt-0">
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
+
+                <div class="bg-white/10 backdrop-blur-md border border-white/30
+                            rounded-2xl p-4 sm:p-6 text-center shadow-lg">
+                    <div class="text-2xl sm:text-4xl font-extrabold text-white counter"
+                         data-target="{{ $stats['students'] }}">0</div>
+                    <p class="mt-1 text-xs sm:text-sm text-white">Siswa Aktif</p>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-md border border-white/30
+                            rounded-2xl p-4 sm:p-6 text-center shadow-lg">
+                    <div class="text-2xl sm:text-4xl font-extrabold text-white counter"
+                         data-target="{{ $stats['teachers'] }}">0</div>
+                    <p class="mt-1 text-xs sm:text-sm text-white">Guru Profesional</p>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-md border border-white/30
+                            rounded-2xl p-4 sm:p-6 text-center shadow-lg">
+                    <div class="text-2xl sm:text-4xl font-extrabold text-white counter"
+                         data-target="{{ $stats['programs'] }}">0</div>
+                    <p class="mt-1 text-xs sm:text-sm text-white">Program Unggulan</p>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-md border border-white/30
+                            rounded-2xl p-4 sm:p-6 text-center shadow-lg">
+                    <div class="text-2xl sm:text-4xl font-extrabold text-white counter"
+                         data-target="{{ $stats['years'] }}">0</div>
+                    <p class="mt-1 text-xs sm:text-sm text-white">Tahun Berdiri</p>
+                </div>
+
             </div>
         </div>
     </div>
 
-    <!-- Scroll Indicator -->
-    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
-        <a href="#about" class="text-primary-400 hover:text-primary-500 transition-colors duration-200">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-            </svg>
-        </a>
-    </div>
 </section>
 
 <script>
-function animateCounters() {
-    const counters = document.querySelectorAll('.counter');
-    counters.forEach(counter => {
-        const target = Number(counter.getAttribute('data-target')) || 0;
-        let current = 0;
-        const duration = 2000;
-        const stepTime = Math.floor(duration / target) || 1;
-        const timer = setInterval(() => {
-            current++;
-            counter.textContent = current;
-            if(current >= target){
-                counter.textContent = target;
-                clearInterval(timer);
-            }
-        }, stepTime);
-    });
-}
+    function animateCounters() {
+        document.querySelectorAll('.counter').forEach(counter => {
+            const target = Number(counter.dataset.target) || 0
+            let current = 0
+            const step = Math.max(1, target / 60)
 
-const heroSection = document.getElementById('home');
-if(heroSection) {
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if(entry.isIntersecting){
-                animateCounters();
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1 });
+            const timer = setInterval(() => {
+                current += step
+                if (current >= target) {
+                    counter.textContent = target
+                    clearInterval(timer)
+                } else {
+                    counter.textContent = Math.floor(current)
+                }
+            }, 25)
+        })
+    }
 
-    observer.observe(heroSection);
-}
+    const heroSection = document.getElementById('home')
+    if (heroSection) {
+        const observer = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting) {
+                animateCounters()
+                observer.disconnect()
+            }
+        }, { threshold: 0.3 })
+
+        observer.observe(heroSection)
+    }
 </script>

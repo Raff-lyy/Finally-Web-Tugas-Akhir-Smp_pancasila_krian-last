@@ -88,9 +88,12 @@
 
         <!-- Load More Button -->
         <div class="text-center mt-12">
-            <button class="bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
-                Lihat Berita Lainnya
-            </button>
+            <a href="{{ route('berita.public.index') }}"
+   class="inline-block bg-green-600 text-white px-8 py-3 rounded-lg font-semibold
+          hover:bg-green-700 transition-all duration-300 shadow-md hover:shadow-lg">
+  Lihat Berita Lainnya
+</a>
+
         </div>
     </div>
 </section>

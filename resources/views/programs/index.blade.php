@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+
+
 @section('title', 'Program Sekolah')
 
 @section('content')
