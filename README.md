@@ -81,7 +81,7 @@ Sebelum memulai, pastikan sudah terinstall:
 
 - [Dilaragon](https://dilaragon.com/) (PHP, MySQL, Apache/Nginx sudah termasuk)
 - Composer
-- Node.js & NPM
+- Tailwind CDN
 - Git
 
 ---
@@ -131,28 +131,14 @@ Jalankan migrasi:
 php artisan migrate --seed
 php artisan storage:link
 ```
-4. Install NPM Dependencies & Compile Assets
-
-Install package frontend:
-```
-npm install
-npm run build
-```
-
-Compile assets Tailwind & JS:
-```
-npm run dev
-```
-
-Untuk development mode, gunakan npm run dev.
-Untuk production build: npm run build.
 
 5. Jalankan Server Laravel
 
 Jalankan server lokal:
 
+```
 php artisan serve
-
+```
 
 Buka browser dan akses:
 
@@ -160,7 +146,7 @@ http://localhost:8000
 
 6. Dashboard Admin
 
-Route dashboard: /dashboard
+Route dashboard: /login --> /dashboard
 
 CRUD tersedia untuk: About, Berita, dan komponen lainnya.
 
